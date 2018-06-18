@@ -22,12 +22,13 @@ def main():
             os.system('clear')
         if opcao == 2:
             if(len(lista) > 0):
-                s = random.choice(lista)
+                s = random.SystemRandom().choice(lista)
                 sorteados.append(s)
                 lista.remove(s)
                 print('NUMERO SORTEADO: ', s)
                 if len(sorteados) == p:
                     print("Todos números já sorteados :)")
+                    numeros_sorteados(sorteados)
                     break
             numeros_sorteados(sorteados)
         if opcao == 3:
