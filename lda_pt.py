@@ -1,16 +1,16 @@
 from nltk.tokenize import RegexpTokenizer
 from stop_words import get_stop_words
-from nltk.stem.porter import PorterStemmer
+from nltk.stem import RSLPStemmer
 from gensim import corpora, models
 import gensim
 
 tokenizer = RegexpTokenizer(r'\w+')
 
-# create English stop words list
-en_stop = get_stop_words('en')
+# create Portuguese stop words list
+en_stop = get_stop_words('pt')
 
 # Create p_stemmer of class PorterStemmer
-p_stemmer = PorterStemmer()
+p_stemmer = RSLPStemmer()
 
 # create sample documents
 doc_a = "Brocolli is good to eat. My brother likes to eat good brocolli, but not my mother."
