@@ -1,23 +1,25 @@
 from nltk.tokenize import RegexpTokenizer
 from stop_words import get_stop_words
 from nltk.stem import RSLPStemmer
+import unicodedata
 from gensim import corpora, models
 import gensim
+import pyLDAvis.gensim
 
 tokenizer = RegexpTokenizer(r'\w+')
 
 # create Portuguese stop words list
-en_stop = get_stop_words('pt')
+pt_stop = get_stop_words('pt')
 
 # Create p_stemmer of class PorterStemmer
 p_stemmer = RSLPStemmer()
 
 # create sample documents
-doc_a = "Brocolli is good to eat. My brother likes to eat good brocolli, but not my mother."
-doc_b = "My mother spends a lot of time driving my brother around to baseball practice."
-doc_c = "Some health experts suggest that driving may cause increased tension and blood pressure."
-doc_d = "I often feel pressure to perform well at school, but my mother never seems to drive my brother to do better."
-doc_e = "Health professionals say that brocolli is good for your health."
+doc_a = "O brócolis é bom para comer. Meu irmão gosta de comer bons brócolis, mas não minha mãe."
+doc_b = "Minha mãe passa muito tempo dirigindo para levar meu irmão para praticar beisebol."
+doc_c = "Alguns especialistas em saúde sugerem que a direção pode aumentar a tensão e a pressão sanguínea."
+doc_d = "Costumo sentir pressão para me sair bem na escola, mas minha mãe parece nunca guiar meu irmão para fazer melhor."
+doc_e = "Profissionais da saúde dizem que brócolis faz bem a sua saúde."
 
 # compile sample documents into a list
 doc_set = [doc_a, doc_b, doc_c, doc_d, doc_e]
@@ -30,10 +32,13 @@ for i in doc_set:
 
     # clean and tokenize document string
     raw = i.lower()
+    #data = text
+    raw = unicodedata.normalize('NFKD', raw).encode('ASCII', 'ignore')
+    raw = (str(raw).replace('b\'','').replace('\'',''))
     tokens = tokenizer.tokenize(raw)
 
     # remove stop words from tokens
-    stopped_tokens = [i for i in tokens if not i in en_stop]
+    stopped_tokens = [i for i in tokens if not i in pt_stop]
 
     # stem tokens
     stemmed_tokens = [p_stemmer.stem(i) for i in stopped_tokens]
@@ -52,3 +57,6 @@ corpus = [dictionary.doc2bow(text) for text in texts]
 ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=2, id2word = dictionary, passes=20,random_state=1)
 #print(ldamodel)
 print(ldamodel.print_topics(num_topics=2, num_words=4))
+
+lda_display = pyLDAvis.gensim.prepare(ldamodel, corpus, dictionary, sort_topics=False)
+pyLDAvis.display(lda_display)
