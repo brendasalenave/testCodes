@@ -1,0 +1,15 @@
+,previsão,temperatura,umidade,vento,prato
+x1,chuva,frio,normal,sim,parmegiana
+x2,chuva,moderado,alta,sim,parmegiana
+x3,sol,quente,alta,não,parmegiana
+x4,sol,quente,alta,sim,parmegiana
+x5,sol,moderado,alta,não,parmegiana
+x6,nublado,frio,normal,sim,feijoada
+x7,nublado,quente,alta,não,feijoada
+x8,nublado,quente,normal,não,feijoada
+x9,nublado,moderado,alta,sim,feijoada
+x10,chuva,frio,normal,não,feijoada
+x11,chuva,moderado,alta,não,feijoada
+x12,chuva,moderado,normal,não,feijoada
+x13,sol,frio,normal,não,feijoada
+x14,sol,moderado,normal,sim,feijoada
